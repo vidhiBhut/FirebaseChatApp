@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "750743310533",
+    "firebase_url": "https://fir-chatapp-1cd6f.firebaseio.com",
+    "project_id": "fir-chatapp-1cd6f",
+    "storage_bucket": "fir-chatapp-1cd6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750743310533:android:1064c768c1ae7dbf",
+        "android_client_info": {
+          "package_name": "com.example.vidhi.firebasechatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750743310533-g409ruu99b3t4ksud9lnqn0p0nnqkgbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmBXREGXhBXHtd68bXLEMZe3JTyG0fCLo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

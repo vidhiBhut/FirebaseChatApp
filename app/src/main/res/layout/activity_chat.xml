@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.vidhi.firebasechatapp.ChatActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
+        android:minHeight="?attr/actionBarSize">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/iv_user"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                app:riv_border_color="#333333"
+                app:riv_border_width="2dip"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="repeat" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#f2eeee"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="online"
+                    android:textColor="#fff"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_delete_white_24dp"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/add_task_wrapper"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <GridLayout
+        android:id="@+id/attach_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edittext_style"
+        android:columnCount="3"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/btn_doc"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_insert_drive_file_black_48dp" />
+
+
+        <ImageView
+            android:id="@+id/btn_camera"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_photo_camera_black_48dp" />
+
+        <ImageView
+            android:id="@+id/btn_img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_collections_black_48dp" />
+
+
+        <ImageView
+            android:id="@+id/btn_audio"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_settings_voice_black_48dp" />
+
+
+        <ImageView
+            android:id="@+id/btn_location"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_location_on_black_48dp" />
+
+        <ImageView
+            android:id="@+id/btn_contact"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_contacts_black_48dp" />
+
+
+    </GridLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_typing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="typing...."
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            />
+
+    <LinearLayout
+        android:id="@+id/add_task_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+
+
+        <EditText
+            android:id="@+id/add_task_box"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="10dp"
+            android:layout_weight="7"
+            android:background="@drawable/edittext_style"
+            android:hint="Type a message....."
+            android:inputType="textCapSentences"
+            android:paddingLeft="15dp" />
+
+        <ImageView
+            android:id="@+id/add_task_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_send_black_48dp" />
+
+        <ImageView
+            android:id="@+id/btn_attach_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_attach_file_black_48dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
