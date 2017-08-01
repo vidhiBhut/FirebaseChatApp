@@ -2,8 +2,10 @@ package com.example.vidhi.firebasechatapp
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.media.MediaRecorder
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.support.v7.app.AlertDialog
@@ -62,6 +65,8 @@ class ChatActivity : AppCompatActivity() {
     var threadId: String? = ""
     var imgUser: RoundedImageView? = null
     val auth = FirebaseAuth.getInstance()
+    var userId : String? = ""
+    val TAG = "chatActivity"
 
     //a Uri object to store file path
     var filePath: Uri? = null
@@ -131,8 +136,26 @@ class ChatActivity : AppCompatActivity() {
         threadId = intent.getStringExtra("threadId")
         val userName = intent.getStringExtra("uName")
         val userPhoto = intent.getStringExtra("photoUrl")
-        val userId = intent.getStringExtra("userId")
+        userId = intent.getStringExtra("userId")
+        Log.d(TAG , "onCreate: ChatActivity$userId")
+        
         println(userPhoto)
+
+        ////....store userId in preference
+        val sharedPref : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val editor = sharedPref.edit()
+        editor.putString("userId",userId)
+        editor.commit()
+
+        ///.....remove id from set and update set and store again
+        var userIdSet: Set<String?>? = null
+        userIdSet = sharedPref.getStringSet("userIdSet" , userIdSet)
+        userIdSet.remove(userId)
+
+        val idEditor = sharedPref.edit()
+        idEditor.putStringSet("userIdSet",userIdSet)
+        idEditor.commit()
+
 
         ////..........setting toolbar details
         val toolbar = findViewById(R.id.toolbar) as android.support.v7.widget.Toolbar
@@ -666,7 +689,7 @@ class ChatActivity : AppCompatActivity() {
 
             override fun onItemRangeInserted(positionStart: Int , itemCount: Int) {
                 super.onItemRangeInserted(positionStart , itemCount)
-                recycler.scrollToPosition(positionStart)
+                recycler.scrollToPosition(getAdapterItemCount() -1)
 
             }
         }
@@ -808,6 +831,8 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
+    private fun ChatActivity.getAdapterItemCount() = mAdapter!!.itemCount
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
@@ -819,10 +844,33 @@ class ChatActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onStop() {
-        super.onStop()
-        FirebaseDatabase.getInstance().getReference("Thread-Details").child(threadId).child("typing").child(auth.currentUser?.uid).removeValue()
+//    override fun onStop() {
+//        super.onStop()
+//        FirebaseDatabase.getInstance().getReference("Thread-Details").child(threadId).child("typing").child(auth.currentUser?.uid).removeValue()
+//        val sharedPref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+//        sharedPref.edit().remove("userId").commit()
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        val sharedPref : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+//        val editor = sharedPref.edit()
+//        editor.putString("userId",userId)
+//        editor.commit()
+//    }
 
+    override fun onResume() {
+        super.onResume()
+        val sharedPref : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val editor = sharedPref.edit()
+        editor.putString("userId",userId)
+        editor.commit()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        sharedPref.edit().remove("userId").commit()
     }
 
 

@@ -1,9 +1,12 @@
 package com.example.vidhi.firebasechatapp
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -84,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
                                             myholder.ivOnline.visibility = View.GONE
                                         }
                                         val imageView = myholder.ivUser
-                                        Glide.with(imageView.getContext())
+                                        Glide.with(applicationContext)
                                                 .load(photoUrl)
                                                 .placeholder(R.drawable.ic_perm_identity_black_48dp)
                                                 .into(imageView)
@@ -92,7 +95,24 @@ class HomeActivity : AppCompatActivity() {
                                         println(name)
                                         myholder.tvUser.setText(name)
 
+                                        ////....get notification user id set
+                                        var userIdSet: Set<String?>? = null
+                                        val sharedPref: SharedPreferences = PreferenceManager
+                                                .getDefaultSharedPreferences(applicationContext)
+                                        userIdSet = sharedPref.getStringSet("userIdSet" ,
+                                                userIdSet)
+
+                                        if (userIdSet!=null) {
+                                            if (userIdSet.contains(usersId)) {
+                                                myholder.ivNewMsg.visibility = View.VISIBLE
+//
+                                            }
+                                        }
+
+
+
                                         myholder.tvUser.setOnClickListener {
+
                                             val intent = Intent(this@HomeActivity , ChatActivity::class.java)
                                             intent.putExtra("threadId" , currentThread)
                                             intent.putExtra("uName" , myholder.tvUser.text)
@@ -112,14 +132,6 @@ class HomeActivity : AppCompatActivity() {
 
                 })
 
-
-//                myholder.tvUser.setOnClickListener {
-//                    val intent = Intent(this@HomeActivity , ChatActivity::class.java)
-//                    intent.putExtra("threadId" , currentThread)
-//                    intent.putExtra("uName" , myholder.tvUser.text)
-//                    intent.putExtra("photoUrl" , photoUrl)
-//                    startActivity(intent)
-//                }
                 myholder.tvUser.setOnLongClickListener({
                     val subdialog: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
                     subdialog.setTitle("Delete chat with " + name + " ?")
@@ -151,11 +163,13 @@ class HomeActivity : AppCompatActivity() {
         internal var tvUser: TextView
         internal var ivUser: RoundedImageView
         internal var ivOnline: ImageView
+        internal var ivNewMsg: ImageView
 
         init {
             tvUser = v.findViewById(R.id.tv_user) as TextView
             ivUser = v.findViewById(R.id.iv_user) as RoundedImageView
             ivOnline = v.findViewById(R.id.iv_online) as ImageView
+            ivNewMsg = v.findViewById(R.id.iv_new_msg) as ImageView
         }
 
     }

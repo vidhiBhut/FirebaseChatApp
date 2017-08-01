@@ -33,6 +33,7 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
 
+        ///....recycler view for search function
         val recUser = findViewById(R.id.rec_user_list) as RecyclerView
 //        val imgSearch = findViewById(R.id.iv_search) as ImageView
 

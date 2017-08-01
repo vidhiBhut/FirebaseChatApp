@@ -58,10 +58,9 @@ class SearchAdapter(context: Context , list: MutableList<User>) : RecyclerView.A
                     .load(myList[position].photoUrl)
                     .placeholder(R.drawable.ic_perm_identity_black_48dp)
                     .into(holder.userImf)
-        }
-        else{
+        } else {
             holder.name.visibility = View.GONE
-            holder.userImf.visibility=View.GONE
+            holder.userImf.visibility = View.GONE
 
         }
 
@@ -84,6 +83,8 @@ class SearchAdapter(context: Context , list: MutableList<User>) : RecyclerView.A
             intent.putExtra("threadId" , threadId)
             intent.putExtra("uName" , holder.name.text)
             intent.putExtra("photoUrl" , myList[position].photoUrl)
+            intent.putExtra("userId" , myList[position].userKey)
+
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context?.startActivity(intent)
         }
